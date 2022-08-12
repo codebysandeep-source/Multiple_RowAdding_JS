@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+    <head>
+
+        <title>Add values in table using Javascript</title>
+
+        <!-- Font Awesome -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+        <!-- Google Fonts -->
+        <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <!-- MDB -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.4.0/mdb.min.css" rel="stylesheet" />
+    
+    </head>
+<body>
+<div class="container">
+    <center class="mt-3 mb-3">Add values in table using Javascript</center>
+        <div class="row mt-5">
+            <div class="col-md-2">
+                <select id="vehicle_type" style="padding:10px; width:100%;">
+                <option value="Small">Small</option>
+                <option value="Standard">Standard</option>
+                <option value="Luxury">Luxury</option>
+                </select>
+            </div>
+            <div class="col-md-2 ">
+                <div class="form-outline">
+                    <input type="number" id="shared_price" name="" class="form-control border "  />
+                    <label class="form-label" for="shared_price">Shared Price</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-outline">
+                    <input type="number" id="reserved_price" name="" class="form-control border" />
+                    <label class="form-label" for="reserved_price">Reserved Price</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-outline">
+                <input type="number" id="driver_rate" name="" class="form-control border" />
+                <label class="form-label" for="driver_rate">Driver Rate</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-outline">
+                <input type="number" id="advance_payment" name="" class="form-control border" />
+                <label class="form-label" for="advance_payment">Advance Payment</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn" style="background:#ffe8d6" name="submit" id="add" value="Add Rates"
+                onclick="addItem1()">
+            </div>
+        </div>
+        
+        <table class="table" id="sales"></table>
+</div>
+
+<input type="hidden" style="width:400px;" name="rate_chart_list" id="ratesDetails">
+
+
+
+<script>
+var tableHeader1 = ['Sl no.','Vehicle Type','Shared Price','Reserved Price','Driver Rate','Advance Payment'];
+var rates1 = [];
+
+function createHeader1(table1, tableHeader1){
+let tHead1 = table1.createTHead();
+let tRow1 = tHead1.insertRow();
+for(val1 in tableHeader1){
+let th = document.createElement('th');
+let text1 = document.createTextNode(tableHeader1[val1]);
+th.appendChild(text1);
+tRow1.appendChild(th);
+}
+}
+
+function addEle1(row1, val1){
+let cell = row1.insertCell();
+let text = document.createTextNode(val1);
+cell.appendChild(text);
+}
+
+function createTableBody1(table1, rates1){
+var inc1 = 1;
+for (val1 in rates1){
+let row1 = table1.insertRow();
+addEle1(row1, inc1);
+var someData1 = rates1[val1][0];
+addEle1(row1,someData1);
+var someData1 = rates1[val1][1];
+addEle1(row1, someData1);
+var someData1 = rates1[val1][2];
+addEle1(row1, someData1);
+var someData1 = rates1[val1][3];
+addEle1(row1, someData1);
+var someData1 = rates1[val1][4];
+addEle1(row1, someData1);
+
+
+var button1 = document.createElement('td');
+button1.innerHTML = '<i class="fas fa-trash" style="color:red; font-size:20px; cursor:pointer;" id = ' +
+inc1 +
+' name="remove"  onclick="removeItem1(this.id)">Del</i>';
+row1.appendChild(button1);
+inc1 = inc1 + 1;
+}
+}
+
+function addItem1() {
+let dataToLoad1 = [] 
+dataToLoad1.push(document.getElementById("vehicle_type").value);
+dataToLoad1.push(document.getElementById("shared_price").value);
+dataToLoad1.push(document.getElementById("reserved_price").value);
+dataToLoad1.push(document.getElementById("driver_rate").value);
+dataToLoad1.push(document.getElementById("advance_payment").value);
+
+rates1.push(dataToLoad1);
+console.log("rates1",rates1);
+var tableContent1 = document.getElementById('sales');
+tableContent1.innerHTML = ""
+createHeader1(tableContent1, tableHeader1);
+createTableBody1(tableContent1, rates1);
+document.getElementById("ratesDetails").value = JSON.stringify(rates1);
+
+}
+
+function removeItem1(indexVal1) {
+console.log("remove ---",rates1);
+console.log(indexVal1);
+rates1.splice(indexVal1 - 1, 1);
+var tableContent1 = document.getElementById('sales');
+tableContent1.innerHTML = "";
+createHeader1(tableContent1, tableHeader1);
+createTableBody1(tableContent1, rates1);
+document.getElementById("ratesDetails").value = JSON.stringify(rates1);
+console.log("remove",rates1)
+
+}
+</script>
+<script src="jquery.min.js"></script>
+
+
+    </body>
+    </html>
